@@ -1,6 +1,8 @@
 module github.com/ryder472/brew-sbom
 
-go 1.24.13
+go 1.23
+
+toolchain go1.24.13
 
 require (
 	github.com/CycloneDX/cyclonedx-go v0.10.0

@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: ["**"]
   pull_request:
-    branches: [main]
+    branches: ["**"]
 
 jobs:
   test:
@@ -15,8 +15,22 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: "1.24"
+          go-version: "1.22"
       - name: Run tests
         run: go test ./...
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+
+  integration:
+    runs-on: macos-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
       - name: Build
-        run: go build ./cmd/brew-sbom
+        run: go build ./...
