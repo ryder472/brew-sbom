@@ -17,14 +17,11 @@ jobs:
           go-version: "1.24"
       - name: Build
         run: |
-          GOOS=darwin GOARCH=amd64 go build -o brew-sbom-darwin-amd64 ./cmd/brew-sbom
-          GOOS=darwin GOARCH=arm64 go build -o brew-sbom-darwin-arm64 ./cmd/brew-sbom
-          GOOS=linux GOARCH=amd64 go build -o brew-sbom-linux-amd64 ./cmd/brew-sbom
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          generate_release_notes: true
-          files: |
-            brew-sbom-darwin-amd64
-            brew-sbom-darwin-arm64
-            brew-sbom-linux-amd64
+          mkdir -p dist
+          GOOS=darwin GOARCH=amd64 go build -o dist/brew-sbom-darwin-amd64 ./cmd/brew-sbom
+          GOOS=darwin GOARCH=arm64 go build -o dist/brew-sbom-darwin-arm64 ./cmd/brew-sbom
+          GOOS=linux GOARCH=amd64 go build -o dist/brew-sbom-linux-amd64 ./cmd/brew-sbom
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${GITHUB_REF_NAME}" dist/* --generate-notes
