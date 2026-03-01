@@ -5,6 +5,4 @@ build:
 
 test:
 	go test ./...
-
-clean:
-	rm -rf bin/
+	

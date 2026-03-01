@@ -18,9 +18,7 @@ jobs:
       - name: Build
         run: |
           mkdir -p dist
-          GOOS=darwin GOARCH=amd64 go build -o dist/brew-sbom-darwin-amd64 ./cmd/brew-sbom
           GOOS=darwin GOARCH=arm64 go build -o dist/brew-sbom-darwin-arm64 ./cmd/brew-sbom
-          GOOS=linux GOARCH=amd64 go build -o dist/brew-sbom-linux-amd64 ./cmd/brew-sbom
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
