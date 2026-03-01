@@ -3,12 +3,16 @@ name: CI
 on:
   push:
     branches: [main]
+    paths:
+      - "!README.md"
+      - "!.github/dependabot.yml"
+      - "!.gitignore"
   pull_request:
     branches: [main]
-  paths:
-    - "!README.md"
-    - "!.github/dependabot.yml"
-    - "!.gitignore"
+    paths:
+      - "!README.md"
+      - "!.github/dependabot.yml"
+      - "!.gitignore"
 
 jobs:
   test:
